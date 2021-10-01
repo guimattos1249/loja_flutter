@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "336642332546",
+    "project_id": "loja-virtual-c25e4",
+    "storage_bucket": "loja-virtual-c25e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336642332546:android:a7057d2b75efbc6880619b",
+        "android_client_info": {
+          "package_name": "br.com.mattos.loja_virtual_pro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336642332546-3q2i182dg0v8q3djorksf2b6uhe62fnd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7A_58IHnXirHpfNGwcyVW18R7skFYEmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336642332546-3q2i182dg0v8q3djorksf2b6uhe62fnd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

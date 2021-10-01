@@ -30,6 +30,9 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -97,5 +100,20 @@
       loadMainDartJs();
     }
   </script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyCQpFdAuDRcG5jsdcK8bkC-Qv2uHKFO8y8",
+      authDomain: "loja-virtual-c25e4.firebaseapp.com",
+      projectId: "loja-virtual-c25e4",
+      storageBucket: "loja-virtual-c25e4.appspot.com",
+      messagingSenderId: "336642332546",
+      appId: "1:336642332546:web:d9fa8135183e956f80619b",
+      measurementId: "G-0YKF1XTRN1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
