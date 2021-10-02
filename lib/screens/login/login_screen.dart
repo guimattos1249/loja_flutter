@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual_pro/helpers/validators.dart';
+import 'package:loja_virtual_pro/models/user.dart';
+import 'package:loja_virtual_pro/models/user_manager.dart';
+import 'package:provider/src/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passlController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -43,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                   height: 16,
                 ),
                 TextFormField(
-                  controller: passlController,
+                  controller: passController,
                   decoration: const InputDecoration(hintText: 'Senha'),
                   autocorrect: false,
                   obscureText: true,
@@ -78,7 +81,11 @@ class LoginScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        print(emailController.text);
+                        context.read<UserManager>().signIn(
+                              User(
+                                  email: emailController.text,
+                                  password: passController.text),
+                            );
                       }
                     },
                     child: const Text('Entrar'),
