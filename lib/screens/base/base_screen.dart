@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 class BaseScreen extends StatelessWidget {
   final PageController pageController = PageController();
 
+  BaseScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Provider(
