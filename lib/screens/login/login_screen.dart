@@ -18,8 +18,23 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 4, 125, 141),
         title: const Text('Entrar'),
         centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/signup');
+            },
+            child: const Text(
+              'Criar Conta',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Card(
