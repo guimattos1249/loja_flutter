@@ -8,8 +8,8 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
-  final formKey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   LoginScreen({Key? key}) : super(key: key);
 
@@ -111,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                                         password: passController.text,
                                       ),
                                       onFail: (e) {
-                                        scaffoldKey.currentState!.showSnackBar(
+                                        scaffoldKey.currentState?.showSnackBar(
                                           SnackBar(
                                             content:
                                                 Text('Falha ao Entrar: $e'),
