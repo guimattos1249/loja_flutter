@@ -1,5 +1,6 @@
 // ignore_for_file: library_prefixes
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FireBase;
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -12,8 +13,9 @@ class UserManager extends ChangeNotifier {
   }
 
   final FireBase.FirebaseAuth auth = FireBase.FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  FireBase.User? user;
+  User.User? user;
 
   bool loading = false;
 
@@ -27,7 +29,33 @@ class UserManager extends ChangeNotifier {
       FireBase.UserCredential result = await auth.signInWithEmailAndPassword(
           email: user.email!, password: user.password!);
 
-      this.user = result.user;
+      await _loadCurrentUser(firebaseUser: result.user);
+
+      onSuccess();
+    } on PlatformException catch (e) {
+      onFail(getErrorString(e.code));
+    } on FireBase.FirebaseAuthException catch (e) {
+      onFail(getErrorString(e.code));
+    }
+    setLoading(false);
+  }
+
+  Future<void> signUp({
+    required User.User user,
+    required Function onFail,
+    required Function onSuccess,
+  }) async {
+    setLoading(true);
+
+    try {
+      FireBase.UserCredential result =
+          await auth.createUserWithEmailAndPassword(
+              email: user.email!, password: user.password!);
+
+      user.id = result.user!.uid;
+      this.user = user;
+
+      await user.saveData();
 
       onSuccess();
     } on PlatformException catch (e) {
@@ -43,11 +71,13 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _loadCurrentUser() {
-    final FireBase.User? currentUser = auth.currentUser;
+  Future<void> _loadCurrentUser({FireBase.User? firebaseUser}) async {
+    final FireBase.User? currentUser = firebaseUser ?? auth.currentUser;
     if (currentUser != null) {
-      user = currentUser;
+      final DocumentSnapshot docUser =
+          await firestore.collection('users').doc(currentUser.uid).get();
+      user = User.User.fromDocument(docUser);
+      notifyListeners();
     }
-    notifyListeners();
   }
 }
