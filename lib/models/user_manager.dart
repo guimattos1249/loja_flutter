@@ -19,6 +19,8 @@ class UserManager extends ChangeNotifier {
 
   bool loading = false;
 
+  bool get isLoggedIn => user != null;
+
   Future<void> signIn({
     required User.User user,
     required Function onFail,
@@ -64,6 +66,12 @@ class UserManager extends ChangeNotifier {
       onFail(getErrorString(e.code));
     }
     setLoading(false);
+  }
+
+  void signOut() {
+    auth.signOut();
+    user = null;
+    notifyListeners();
   }
 
   void setLoading(bool value) {

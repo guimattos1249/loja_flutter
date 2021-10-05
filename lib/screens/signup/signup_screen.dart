@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports
+
 import 'package:flutter/material.dart';
 import 'package:loja_virtual_pro/helpers/validators.dart';
 import 'package:loja_virtual_pro/models/user.dart';
@@ -140,7 +142,7 @@ class SignUpScreen extends StatelessWidget {
                               );
                             },
                             onSuccess: () {
-                              //TODO: POP
+                              Navigator.of(context).pop();
                             });
                       }
                     },
