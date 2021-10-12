@@ -4,6 +4,8 @@ import 'package:loja_virtual_pro/models/product_manager.dart';
 import 'package:loja_virtual_pro/screens/products/components/product_list_title.dart';
 import 'package:provider/provider.dart';
 
+import 'components/search_dialog.dart';
+
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
 
@@ -15,6 +17,14 @@ class ProductsScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 4, 125, 141),
         title: const Text('Produtos'),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              showDialog(context: context, builder: (_) => SearchDialog());
+            },
+            icon: const Icon(Icons.search),
+          ),
+        ],
       ),
       body: Consumer<ProductManager>(
         builder: (_, productManager, __) {
