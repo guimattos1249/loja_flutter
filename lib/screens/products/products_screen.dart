@@ -15,18 +15,59 @@ class ProductsScreen extends StatelessWidget {
       drawer: const CustomDrawer(),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 4, 125, 141),
-        title: const Text('Produtos'),
+        title: Consumer<ProductManager>(
+          builder: (_, productManager, __) {
+            if (productManager.search.isEmpty) {
+              return const Text('Produtos');
+            } else {
+              return LayoutBuilder(builder: (_, constraints) {
+                constraints.biggest.width;
+                return GestureDetector(
+                  child: SizedBox(
+                    width: constraints.biggest.width,
+                    child: Text(
+                      productManager.search,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  onTap: () async {
+                    final search = await showDialog<String>(
+                        context: context,
+                        builder: (_) => SearchDialog(productManager.search));
+                    if (search != null) {
+                      productManager.search = search;
+                    }
+                  },
+                );
+              });
+            }
+          },
+        ),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            onPressed: () async {
-              final search = await showDialog<String>(
-                  context: context, builder: (_) => SearchDialog());
-              if (search != null) {
-                context.read<ProductManager>().search = search;
+          Consumer<ProductManager>(
+            builder: (_, productManager, __) {
+              if (productManager.search.isEmpty) {
+                return IconButton(
+                  onPressed: () async {
+                    final search = await showDialog<String>(
+                        context: context,
+                        builder: (_) => SearchDialog(productManager.search));
+                    if (search != null) {
+                      productManager.search = search;
+                    }
+                  },
+                  icon: const Icon(Icons.search),
+                );
+              } else {
+                return IconButton(
+                  onPressed: () {
+                    productManager.search = '';
+                  },
+                  icon: const Icon(Icons.close),
+                );
               }
             },
-            icon: const Icon(Icons.search),
           ),
         ],
       ),
